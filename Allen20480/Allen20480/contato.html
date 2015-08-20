@@ -116,17 +116,16 @@
                 //valida se os campos estão vazios (não foram digitados)
                 if ($txtNome.val() === "") {
                     $($txtNome).parent().append("<label class='not-valid'>Digite o nome</label>");
-                    return;
+                    isValid = false;
                 }
-
-                if ($txtEmail.val() == "") {
-                    $($txtEmail).parent().append("<label class='not-valid'>Digite o e-mail</label>");
-                    return;
+                if ($txtEmail.val() === "") {
+                    $($txtEmail).parent().append("<label class='not-valid'>digite o Email</label>");
+                    isValid = false;
                 }
 
                 if ($txtMensagem.val() == "") {
                     $($txtMensagem).parent().append("<label class='not-valid'>Digite a mensagem</label>>");
-                    return;
+                    isValid = false;
                 }
                 //retorna falso para parar o processo
                 if (!isValid)
