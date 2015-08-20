@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Allen 20480</title>
+
+    <style type="text/css">
+        .not-valid {
+            background-color: #B8312F;
+            border-radius: 2px;
+            padding: 5px 5px;
+            color: white;
+            margin: 5px 0 0 5px;
+        }
+    </style>
+
+    <!-- Bootstrap core CSS -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Allen 20480</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li class="active"><a href="contato.html">Contact</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+        <div class="page-header">
+            <h1>Contato</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="txtNome" class="col-sm-2 control-label">Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtNome" placeholder="Nome">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEmail" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtEmail" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtMensagem" class="col-sm-2 control-label">Mensagem</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="txtMensagem" cols="4" rows="10" placeholder="Digite sua mensagem"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" id="btnEnviar" class="btn btn-default btn-primary">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        //Sempre que a página estiver inicializada tenho que colocar este document.ready
+        $(document).ready(function () {
+            //aplicando o evento ao clique do botão
+            $("#btnEnviar").click(function () {
+                //pegando por id os txts
+                var $txtNome = $("#txtNome");
+                var $txtEmail = $("#txtEmail");
+                var $txtMensagem = $("#txtMensagem");
+
+                var isValid = true;
+                //remove as labels para validar novamente
+                $txtNome.parent().find("label").remove();
+                $txtEmail.parent().find("label").remove();
+                $txtMensagem.parent().find("label").remove();
+                //valida se os campos estão vazios (não foram digitados)
+                if ($txtNome.val() === "") {
+                    $($txtNome).parent().append("<label class='not-valid'>Digite o nome</label>");
+                    return;
+                }
+
+                if ($txtEmail.val() == "") {
+                    $($txtEmail).parent().append("<label class='not-valid'>Digite o e-mail</label>");
+                    return;
+                }
+
+                if ($txtMensagem.val() == "") {
+                    $($txtMensagem).parent().append("<label class='not-valid'>Digite a mensagem</label>>");
+                    return;
+                }
+                //retorna falso para parar o processo
+                if (!isValid)
+                    return false;
+            });
+        });
+    </script>
+</body>
+</html>
