@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Allen 20480</title>
+
+    <style type="text/css">
+        .not-valid {
+            background-color: #B8312F;
+            border-radius: 2px;
+            padding: 5px 5px;
+            color: white;
+            margin: 5px 0 0 5px;
+        }
+    </style>
+
+    <!-- Bootstrap core CSS -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Allen 20480</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Sobre</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                        <li><a href="localizacao.html" class="active">Localizacao</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+        <div class="page-header">
+            <h1>Localização</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="col-md-8" id="maps" style="height: 600px; width: 600px">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/ajaxUtil.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript">
+        //pegando e mostrando o mapa com localização utilizando a api do google maps
+        $(document).ready(function () {
+
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                var latlong = new google.maps.LatLng(latitude, longitude);
+
+                var options = {
+                    zoom: 15,
+                    center: latlong,
+                    mapTypeContro: false,
+                    navigationControlOption: {
+                        style: google.maps.NavigationControlStyle.SMALL
+                    },
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                var mapCanvas = document.getElementById("maps");
+
+                var map = new google.maps.Map(mapCanvas, options);
+
+                new google.maps.Marker({
+                    position: latlong,
+                    map: map,
+                });
+
+            }, function (error) {
+                alert("Não foi possível localizar o ip");
+            });
+        });
+    </script>
+</body>
+</html>

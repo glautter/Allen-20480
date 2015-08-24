@@ -42,8 +42,9 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li class="active"><a href="contato.html">Contact</a></li>
+                        <li><a href="#">Sobre</a></li>
+                        <li class="active"><a href="contato.html">Contato</a></li>
+                        <li><a href="localizacao.html">Localizacao</a></li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
@@ -77,12 +78,12 @@
                     <div class="form-group">
                         <label for="txtMensagem" class="col-sm-2 control-label">Mensagem</label>
                         <div class="col-sm-10">
-                           <textarea class="form-control" id="txtMensagem" cols="4" rows="10" placeholder="Digite sua mensagem"></textarea>
+                            <textarea class="form-control" id="txtMensagem" cols="4" rows="10" placeholder="Digite sua mensagem"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" id="btnEnviar" data-loading-text="Enviando..."  class="btn btn-default btn-primary">Enviar</button>
+                            <button type="button" id="btnEnviar" data-loading-text="Enviando..." class="btn btn-default btn-primary">Enviar</button>
                         </div>
                     </div>
                 </form>
@@ -97,6 +98,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="Scripts/jquery-1.9.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/ajaxUtil.js"></script>
 
     <script type="text/javascript">
         //Sempre que a página estiver inicializada tenho que colocar este document.ready
@@ -134,9 +136,29 @@
                 $("#btnEnviar").button("loading");
 
                 //enviando uma requisição da tela
-                
-                ///o endereço localhost deve ser o mesmo que você está rodando na máquina ou o servidor que a infra criar para o site
-                $.ajax({
+                //o endereço localhost deve ser o mesmo que você está rodando na máquina ou o servidor que a infra criar para o site
+                var ajax = new Ajax({
+                    url: "http://localhost:2903/contato/EnviaMensagem",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        nome: $txtNome.val(),
+                        email: $txtEmail.val(),
+                        mensagem: $txtMensagem.val()
+                    })
+                });
+
+                ajax.makeRequest()
+                    .done(function (data) {
+                        if (data.Message === "OK") {
+                            $("div.alert").show("slow");
+                        }
+                        $("#btnEnviar").button("reset");
+                    }).fail(function () {
+                        console.log("Error");
+                    });
+                /*$.ajax({
                     url: "http://localhost:2903/contato/EnviaMensagem",
                     type: "POST",
                     dataType: "json",
@@ -154,7 +176,7 @@
                     },
                     error: function () {
                     }
-                });
+                });*/
             });
         });
     </script>
